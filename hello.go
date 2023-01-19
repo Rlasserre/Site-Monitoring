@@ -2,18 +2,19 @@ package main
 
 import (
 	"fmt"
-	"reflect"
 )
 
 func main() {
-	var name = "Rafael"
+	name := "Rafael"
 	var version float32 = 1.1
-	var age = 38
-	fmt.Println("My first go program!")
 	fmt.Println("Hi, sr.", name, "!")
-	fmt.Println("You are", age, "y.o.")
 	fmt.Println("Program version:", version)
 
-	fmt.Println(`The type of the variable "name" is`, reflect.TypeOf(name))
+	fmt.Println("1- Start Monitoring")
+	fmt.Println("2- Show Logs")
+	fmt.Println("0- Exit Program")
+	var comand int
+	fmt.Scan(&comand)
 
+	fmt.Println("You choose option", comand)
 }
