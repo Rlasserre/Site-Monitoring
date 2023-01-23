@@ -18,13 +18,25 @@ func main() {
 	fmt.Scan(&comand)
 	fmt.Println("You choose option", comand)
 
-	if comand == 1 {
+	/* if comand == 1 { */
+	/* 	fmt.Println("Start monitoring ...") */
+	/* } else if comand == 2 { */
+	/* 	fmt.Println("Showing Logs ...") */
+	/* } else if comand == 0 { */
+	/* 	fmt.Println("Leaving program.") */
+	/* } else { */
+	/* 	fmt.Println("Unavailable option.") */
+	/* } */
+
+	switch comand {
+	case 1:
 		fmt.Println("Start monitoring ...")
-	} else if comand == 2 {
+	case 2:
 		fmt.Println("Showing Logs ...")
-	} else if comand == 0 {
+	case 0:
 		fmt.Println("Leaving program.")
-	} else {
+	default:
 		fmt.Println("Unavailable option.")
 	}
+
 }
