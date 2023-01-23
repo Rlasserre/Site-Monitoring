@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -16,9 +17,11 @@ func main() {
 	case 2:
 		fmt.Println("Showing Logs ...")
 	case 0:
-		fmt.Println("Leaving program.")
+		fmt.Println("Leaving program!")
+		os.Exit(0)
 	default:
 		fmt.Println("Unavailable option.")
+		os.Exit(-1)
 	}
 }
 
@@ -42,4 +45,5 @@ func readCommand() int {
 	fmt.Println("You choose option", commandRead)
 
 	return commandRead
+
 }
