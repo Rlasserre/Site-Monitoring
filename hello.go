@@ -2,26 +2,29 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
 func main() {
 
 	showIntro()
-	showMenu()
-	command := readCommand()
+	for {
+		showMenu()
+		command := readCommand()
 
-	switch command {
-	case 1:
-		fmt.Println("Start monitoring ...")
-	case 2:
-		fmt.Println("Showing Logs ...")
-	case 0:
-		fmt.Println("Leaving program!")
-		os.Exit(0)
-	default:
-		fmt.Println("Unavailable option.")
-		os.Exit(-1)
+		switch command {
+		case 1:
+			startMonitoring()
+		case 2:
+			fmt.Println("Showing Logs ...")
+		case 0:
+			fmt.Println("Leaving program!")
+			os.Exit(0)
+		default:
+			fmt.Println("Unavailable option.")
+			os.Exit(-1)
+		}
 	}
 }
 
@@ -46,4 +49,16 @@ func readCommand() int {
 
 	return commandRead
 
+}
+
+func startMonitoring() {
+	fmt.Println("Start monitoring ...")
+	site := "https://random-status-code.herokuapp.com/"
+	resp, _ := http.Get(site)
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "Is running")
+
+	} else {
+		fmt.Println("Site:", site, "Is Down, Status Code:", resp.StatusCode)
+	}
 }
