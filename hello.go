@@ -53,11 +53,22 @@ func readCommand() int {
 
 func startMonitoring() {
 	fmt.Println("Start monitoring ...")
-	site := "https://random-status-code.herokuapp.com/"
+	sites := []string{"https://random-status-code.herokuapp.com/",
+		"https://globo.com", "https://uol.com.br/", "https://atarde.com.br"}
+
+	for i, site := range sites {
+		fmt.Println("Testing site", i, ":", site)
+		siteMonitoring(site)
+	}
+
+	fmt.Println("")
+
+}
+func siteMonitoring(site string) {
 	resp, _ := http.Get(site)
+
 	if resp.StatusCode == 200 {
 		fmt.Println("Site:", site, "Is running")
-
 	} else {
 		fmt.Println("Site:", site, "Is Down, Status Code:", resp.StatusCode)
 	}
