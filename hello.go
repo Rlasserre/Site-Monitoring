@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net/http"
 	"os"
@@ -58,8 +59,11 @@ func readCommand() int {
 
 func startMonitoring() {
 	fmt.Println("Start monitoring ...")
-	sites := []string{"https://random-status-code.herokuapp.com/",
-		"https://globo.com", "https://uol.com.br/", "https://atarde.com.br"}
+
+	/* sites := []string{"https://random-status-code.herokuapp.com/", */
+	/* 	"https://globo.com", "https://uol.com.br/", "https://atarde.com.br"} */
+
+	sites := readSitesFiles()
 
 	for i := 0; i < monitoring; i++ {
 		for i, site := range sites {
@@ -74,7 +78,11 @@ func startMonitoring() {
 
 }
 func siteMonitoring(site string) {
-	resp, _ := http.Get(site)
+	resp, err := http.Get(site)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 
 	if resp.StatusCode == 200 {
 
@@ -82,4 +90,27 @@ func siteMonitoring(site string) {
 	} else {
 		fmt.Println("Site:", site, "Is Down, Status Code:", resp.StatusCode)
 	}
+}
+
+func readSitesFiles() []string {
+
+	var sites []string
+
+	file, err := os.Open("sites.txt")
+
+	if err != nil {
+		fmt.Println("Error :", err)
+	}
+
+	reader := bufio.NewReader(file)
+
+	line, err := reader.ReadString('\n')
+
+	if err != nil {
+		fmt.Println("Error :", err)
+	}
+
+	fmt.Println(line)
+
+	return sites
 }
