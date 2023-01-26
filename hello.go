@@ -16,6 +16,8 @@ const delay = 10
 func main() {
 
 	showIntro()
+	logger("site-false", false)
+
 	for {
 		showMenu()
 		command := readCommand()
@@ -62,9 +64,6 @@ func readCommand() int {
 func startMonitoring() {
 	fmt.Println("Start monitoring ...")
 
-	/* sites := []string{"https://random-status-code.herokuapp.com/", */
-	/* 	"https://globo.com", "https://uol.com.br/", "https://atarde.com.br"} */
-
 	sites := readSitesFiles()
 
 	for i := 0; i < monitoring; i++ {
@@ -87,10 +86,11 @@ func siteMonitoring(site string) {
 	}
 
 	if resp.StatusCode == 200 {
-
 		fmt.Println("Site:", site, "Is running")
+		logger(site, true)
 	} else {
 		fmt.Println("Site:", site, "Is Down, Status Code:", resp.StatusCode)
+		logger(site, false)
 	}
 }
 
@@ -118,4 +118,15 @@ func readSitesFiles() []string {
 	file.Close()
 
 	return sites
+}
+
+func logger(site string, status bool) {
+
+	file, err := os.Open("log.txt")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(file)
 }
