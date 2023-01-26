@@ -115,6 +115,7 @@ func readSitesFiles() []string {
 			break
 		}
 	}
+	file.Close()
 
 	return sites
 }
