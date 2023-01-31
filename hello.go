@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -27,6 +28,7 @@ func main() {
 			startMonitoring()
 		case 2:
 			fmt.Println("Showing Logs ...")
+			showLogs()
 		case 0:
 			fmt.Println("Leaving program!")
 			os.Exit(0)
@@ -133,4 +135,16 @@ func logger(site string, status bool) {
 		strconv.FormatBool(status) + "\n")
 
 	file.Close()
+}
+
+func showLogs() {
+
+	file, err := ioutil.ReadFile("log.txt")
+
+	fmt.Println(string(file))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
 }
