@@ -129,7 +129,7 @@ func logger(site string, status bool) {
 	}
 
 	file.WriteString(time.Now().Format("02 Jan 06 15:04 MST") +
-		" - " + site + "- online: " +
+		" - " + site + " - online: " +
 		strconv.FormatBool(status) + "\n")
 
 	file.Close()
